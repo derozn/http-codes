@@ -2,6 +2,23 @@
 
 HTTP status codes as of the HTTP/1.1 standard (RFC 7231)
 
+## How it works
+
+http-codes uses ES6 Proxy to wrap a JavaScript object and return status codes mapped to their messages as constants. 
+
+If a constant doesn't exist, an error will be throw which will stop you accidentally returning undefined
+
+```javascript
+get: (target, property) => {
+    if (property in target) {
+        return target[property];
+    } else {
+        throw new Error("http-codes: HTTP Code doesn't exist");
+    }
+}
+```
+
+
 ## How to use
 
 ```javascript
@@ -11,6 +28,8 @@ console.log(httpCodes.INTERNAL_SERVER_ERROR); // 500
 
 console.log(httpCodes.DOESNT_EXIST);          // ERROR
 ```
+
+## Constant Map
 ```
 Constant                           Code   Description
 ----------------------------------|------|-----------------------------------
