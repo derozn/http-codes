@@ -11,8 +11,8 @@ console.log(httpCodes.INTERNAL_SERVER_ERROR); // 500
 
 console.log(httpCodes.DOESNT_EXIST);          // ERROR
 ```
-
-Constant                          | Code | Description
+```
+Constant                           Code   Description
 ----------------------------------|------|-----------------------------------
 ACCEPTED                          | 202  | Accepted
 BAD_GATEWAY                       | 502  | Bad Gateway
@@ -68,3 +68,4 @@ UNAUTHORIZED                      | 401  | Unauthorized
 UNPROCESSABLE_ENTITY              | 422  | Unprocessable Entity
 UNSUPPORTED_MEDIA_TYPE            | 415  | Unsupported Media Type
 USE_PROXY                         | 305  | Use Proxy
+```
