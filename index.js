@@ -55,7 +55,7 @@ STATUS_CODES.UNPROCESSABLE_ENTITY = 422;
 STATUS_CODES.UNSUPPORTED_MEDIA_TYPE = 415;
 STATUS_CODES.USE_PROXY = 305;
 
-const httpCodes = new Proxy({ OK: "200", INTERNAL_SERVER_ERROR: 500 }, {
+const httpCodes = new Proxy(STATUS_CODES, {
     get: function(target, property) {
         if (property in target) {
             return target[property];
