@@ -1,4 +1,7 @@
 const httpCodes = require("./index.js");
 
-console.log(httpCodes.OK); // 200
-console.log(httpCodes.NOT_OK); //Uncaught Error: HTTP Code doesn't exist
+console.log(httpCodes.ACCEPTED);     // 200
+console.log(httpCodes.BAD_GATEWAY);  // 502
+console.log(httpCodes.BAD_REQUEST);  // 400
+
+console.log(httpCodes.DOESNT_EXIST); // ERROR
