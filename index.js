@@ -1,66 +1,14 @@
-const scope = () => {
-    const map = {
-        // create the root object which is referenced by the Proxy
-        // HTTP status codes as of the HTTP/1.1 standard (RFC 7231)
-        ACCEPTED: 202,
-        BAD_GATEWAY: 502,
-        BAD_REQUEST: 400,
-        CONFLICT: 409,
-        CONTINUE: 100,
-        CREATED: 201,
-        EXPECTATION_FAILED: 417,
-        FAILED_DEPENDENCY : 424,
-        FORBIDDEN: 403,
-        GATEWAY_TIMEOUT: 504,
-        GONE: 410,
-        HTTP_VERSION_NOT_SUPPORTED: 505,
-        IM_A_TEAPOT: 418,
-        INSUFFICIENT_SPACE_ON_RESOURCE: 419,
-        INSUFFICIENT_STORAGE: 507,
-        INTERNAL_SERVER_ERROR: 500,
-        LENGTH_REQUIRED: 411,
-        LOCKED: 423,
-        METHOD_FAILURE: 420,
-        METHOD_NOT_ALLOWED: 405,
-        MOVED_PERMANENTLY: 301,
-        MOVED_TEMPORARILY: 302,
-        MULTI_STATUS: 207,
-        MULTIPLE_CHOICES: 300,
-        NETWORK_AUTHENTICATION_REQUIRED: 511,
-        NO_CONTENT: 204,
-        NON_AUTHORITATIVE_INFORMATION: 203,
-        NOT_ACCEPTABLE: 406,
-        NOT_FOUND: 404,
-        NOT_IMPLEMENTED: 501,
-        NOT_MODIFIED: 304,
-        OK: 200,
-        PARTIAL_CONTENT: 206,
-        PAYMENT_REQUIRED: 402,
-        PERMANENT_REDIRECT: 308,
-        PRECONDITION_FAILED: 412,
-        PRECONDITION_REQUIRED: 428,
-        PROCESSING: 102,
-        PROXY_AUTHENTICATION_REQUIRED: 407,
-        REQUEST_HEADER_FIELDS_TOO_LARGE: 431,
-        REQUEST_TIMEOUT: 408,
-        REQUEST_TOO_LONG: 413,
-        REQUEST_URI_TOO_LONG: 414,
-        REQUESTED_RANGE_NOT_SATISFIABLE: 416,
-        RESET_CONTENT: 205,
-        SEE_OTHER: 303,
-        SERVICE_UNAVAILABLE: 503,
-        SWITCHING_PROTOCOLS: 101,
-        TEMPORARY_REDIRECT: 307,
-        TOO_MANY_REQUESTS: 429,
-        UNAUTHORIZED: 401,
-        UNPROCESSABLE_ENTITY: 422,
-        UNSUPPORTED_MEDIA_TYPE: 415,
-        USE_PROXY: 305,
-    };
+const statusCodeMapping = require('./statusCodeMapping');
 
+// Changes all values of the statusCodeMapping to undefined for autocomplete in IDEs
+const autoCompleteStatusCodeMapping = Object.fromEntries(
+    Object.entries(statusCodeMapping).map(([key]) => [key, undefined])
+)
+
+const scope = () => {
     // the Proxy will throw an error if a unknown status is used
     // this saves an extra function call to see if object exists
-    const httpCodes = new Proxy(map, {
+    const httpCodes = new Proxy(statusCodeMapping, {
         get: (target, property) => {
             if (property in target) {
                 return target[property];
@@ -68,62 +16,7 @@ const scope = () => {
                 throw new Error("http-codes: HTTP Code doesn't exist");
             }
         },
-        // add the properties that map to CODE object propeties
-        // this way we get autocomplete tooling for status codes
-        ACCEPTED: undefined,
-        BAD_GATEWAY: undefined,
-        BAD_REQUEST: undefined,
-        CONFLICT: undefined,
-        CONTINUE: undefined,
-        CREATED: undefined,
-        EXPECTATION_FAILED: undefined,
-        FAILED_DEPENDENCY: undefined,
-        FORBIDDEN: undefined,
-        GATEWAY_TIMEOUT: undefined,
-        GONE: undefined,
-        HTTP_VERSION_NOT_SUPPORTED: undefined,
-        IM_A_TEAPOT: undefined,
-        INSUFFICIENT_SPACE_ON_RESOURCE: undefined,
-        INSUFFICIENT_STORAGE: undefined,
-        INTERNAL_SERVER_ERROR: undefined,
-        LENGTH_REQUIRED: undefined,
-        LOCKED: undefined,
-        METHOD_FAILURE: undefined,
-        METHOD_NOT_ALLOWED: undefined,
-        MOVED_PERMANENTLY: undefined,
-        MOVED_TEMPORARILY: undefined,
-        MULTI_STATUS: undefined,
-        MULTIPLE_CHOICES: undefined,
-        NETWORK_AUTHENTICATION_REQUIRED: undefined,
-        NO_CONTENT: undefined,
-        NON_AUTHORITATIVE_INFORMATION: undefined,
-        NOT_ACCEPTABLE: undefined,
-        NOT_FOUND: undefined,
-        NOT_IMPLEMENTED: undefined,
-        NOT_MODIFIED: undefined,
-        OK: undefined,
-        PARTIAL_CONTENT: undefined,
-        PAYMENT_REQUIRED: undefined,
-        PERMANENT_REDIRECT: undefined,
-        PRECONDITION_FAILED: undefined,
-        PRECONDITION_REQUIRED: undefined,
-        PROCESSING: undefined,
-        PROXY_AUTHENTICATION_REQUIRED: undefined,
-        REQUEST_HEADER_FIELDS_TOO_LARGE: undefined,
-        REQUEST_TIMEOUT: undefined,
-        REQUEST_TOO_LONG: undefined,
-        REQUEST_URI_TOO_LONG: undefined,
-        REQUESTED_RANGE_NOT_SATISFIABLE: undefined,
-        RESET_CONTENT: undefined,
-        SEE_OTHER: undefined,
-        SERVICE_UNAVAILABLE: undefined,
-        SWITCHING_PROTOCOLS: undefined,
-        TEMPORARY_REDIRECT: undefined,
-        TOO_MANY_REQUESTS: undefined,
-        UNAUTHORIZED: undefined,
-        UNPROCESSABLE_ENTITY: undefined,
-        UNSUPPORTED_MEDIA_TYPE: undefined,
-        USE_PROXY: undefined,
+        ...autoCompleteStatusCodeMapping
     });
 
     return httpCodes;
